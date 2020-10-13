@@ -19,7 +19,7 @@ const recipeSchema = new Schema({
     required: true,
   },
   steps: {
-    type: [Array],
+    type: [String],
     required: true,
   },
   notes: {
