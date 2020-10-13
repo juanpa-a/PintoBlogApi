@@ -2,6 +2,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import cors from "cors";
 // Routers
 import recipe_router from "./recipe/route";
 // Express config
@@ -10,13 +11,12 @@ const PORT = process.env.PORT || 9000;
 const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(recipe_router);
-
 // Database connection
 const connect_to_db = () => {
-  // mongoose.connect(`mongodb://localhost/${DB}`, {
   mongoose.connect(
     `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.afcrk.mongodb.net/<dbname>?retryWrites=true&w=majority`,
     {

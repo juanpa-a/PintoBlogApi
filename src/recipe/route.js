@@ -1,20 +1,29 @@
 import express from "express";
-import Recipe from "./model"
+import Recipe from "./model";
 
 const recipe_router = express.Router();
 
-recipe_router.post("/recipe/create", ({ body: { name, ingredients, steps } }, res) => {
-  const recipe = new Recipe({
-    name: name,
-    ingredients: ingredients,
-    steps: steps,
-  });
-  recipe.save((err) => {
-    if (err) console.log("Error:", err);
-    else console.log("Succesfully saved recipe");
-  });
-  res.send(recipe);
-});
+recipe_router.post(
+  "/recipe/create",
+  (
+    { body: { name, thumbnail, ingredients, description, steps, notes } },
+    res
+  ) => {
+    const recipe = new Recipe({
+      name: name,
+      thumbnail: thumbnail,
+      description: description,
+      ingredients: ingredients,
+      steps: steps,
+      notes: notes,
+    });
+    recipe.save((err) => {
+      if (err) console.log("Error:", err);
+      else console.log("Succesfully saved recipe");
+    });
+    res.send(recipe);
+  }
+);
 
 recipe_router.get("/recipe", (_, res) => {
   Recipe.find({}, (err, data) => {
@@ -30,4 +39,4 @@ recipe_router.get("/recipe/:id", ({ params: { id } }, res) => {
   });
 });
 
-module.exports = recipe_router
+module.exports = recipe_router;
